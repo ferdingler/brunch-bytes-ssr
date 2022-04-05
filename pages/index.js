@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
+function Home({ now }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -17,8 +17,8 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
+          The time is{' '}
+          <code className={styles.code}>{now}</code>
         </p>
 
         <div className={styles.grid}>
@@ -67,3 +67,13 @@ export default function Home() {
     </div>
   )
 }
+
+export async function getServerSideProps() {
+  return {
+    props: {
+      now: new Date().toISOString(),
+    },
+  };
+}
+
+export default Home;
